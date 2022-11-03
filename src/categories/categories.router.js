@@ -1,5 +1,6 @@
 const router = require('express').Router()
-
+const passport = require('passport')
+const adminValidate = require('../middlewares/role.middleware')
 const categoryServices = require('./categories.services')
 
 //? / 
@@ -8,10 +9,18 @@ const categoryServices = require('./categories.services')
 
 router.route('/')
     .get(categoryServices.getAllCategories)
-    .post(categoryServices.postCategory) //TODO hacerla protegida por administrador
+    .post(
+        passport.authenticate('jwt', {session: false}),
+        adminValidate,
+        categoryServices.postCategory
+        ) //TODO hacerla protegida por administrador
 
 router.route('/:id')
     .get(categoryServices.getCategoryById)
-    .delete(categoryServices.deleteCategory) //TODO hacerla protegida por administrador
+    .delete(
+        passport.authenticate('jwt', {session: false}),
+        adminValidate,
+        categoryServices.deleteCategory
+        ) //TODO hacerla protegida por administrador
 
 module.exports = router
