@@ -1,5 +1,6 @@
-# SKELETON
+# RECIPES PROJECT ACADEMLO - CHRISTIAN MENDEZ
 
+Technologies used:
 - Express
 - PostgreSQL
 - Sequelize ORM 
